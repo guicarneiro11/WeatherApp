@@ -5,4 +5,7 @@
     <string name="add">Add</string>
     <string name="weather_icon">Weather icon</string>
     <string name="city_background">City background</string>
+    <string name="add_city">Adicionar Cidade</string>
+    <string name="city_added_successfully">Cidade adicionada com sucesso</string>
+    <string name="search_city">Buscar cidade...</string>
 </resources>
