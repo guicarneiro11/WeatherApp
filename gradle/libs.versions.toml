@@ -10,6 +10,7 @@ swiperefreshlayout = "1.1.0"
 mpandroidchart = "v3.1.0"
 retrofit = "2.11.0"
 gson = "2.11.0"
+koin = "3.5.3"
 
 [libraries]
 junit = { group = "junit", name = "junit", version.ref = "junit" }
@@ -23,6 +24,8 @@ mpandroidchart = { group = "com.github.PhilJay", name = "MPAndroidChart", versio
 retrofit = { group = "com.squareup.retrofit2", name = "retrofit", version.ref = "retrofit" }
 retrofit-gson = { group = "com.squareup.retrofit2", name = "converter-gson", version.ref = "retrofit" }
 gson = { group = "com.google.code.gson", name = "gson", version.ref = "gson" }
+koin-android = { group = "io.insert-koin", name = "koin-android", version.ref = "koin" }
+koin-core = { group = "io.insert-koin", name = "koin-core", version.ref = "koin" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
