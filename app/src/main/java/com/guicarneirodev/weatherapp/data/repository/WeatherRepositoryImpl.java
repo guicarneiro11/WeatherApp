@@ -1,5 +1,8 @@
 package com.guicarneirodev.weatherapp.data.repository;
 
+import android.os.Handler;
+import android.os.Looper;
+
 import com.guicarneirodev.weatherapp.data.local.dao.WeatherInfoDao;
 import com.guicarneirodev.weatherapp.data.local.entity.WeatherInfoEntity;
 import com.guicarneirodev.weatherapp.data.mapper.WeatherMapper;
@@ -12,31 +15,80 @@ import java.time.LocalDateTime;
 import java.util.List;
 import retrofit2.Response;
 import java.io.IOException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class WeatherRepositoryImpl implements WeatherRepository {
     private final WeatherApi weatherApi;
     private final WeatherInfoDao weatherInfoDao;
+    private final ExecutorService executorService;
 
     @Inject
     public WeatherRepositoryImpl(WeatherApi weatherApi, WeatherInfoDao weatherInfoDao) {
         this.weatherApi = weatherApi;
         this.weatherInfoDao = weatherInfoDao;
+        this.executorService = Executors.newSingleThreadExecutor();
     }
 
     @Override
-    public WeatherDataDTO getWeatherData(String cityName, String userId) {
-        try {
-            Response<WeatherDataDTO> response = weatherApi.getWeatherData(cityName, userId).execute();
-            if (response.isSuccessful() && response.body() != null) {
-                WeatherDataDTO weatherData = response.body();
-                cacheWeatherData(weatherData);
-                return weatherData;
-            } else {
-                return getCachedWeatherData(cityName);
+    public void getWeatherData(String cityName, String userId, Callback<WeatherDataDTO> callback) {
+        executorService.execute(() -> {
+            try {
+                Response<WeatherDataDTO> response = weatherApi.getWeatherData(cityName, userId).execute();
+                if (response.isSuccessful() && response.body() != null) {
+                    WeatherDataDTO weatherData = response.body();
+                    cacheWeatherData(weatherData);
+                    new Handler(Looper.getMainLooper()).post(() ->
+                            callback.onSuccess(weatherData)
+                    );
+                } else {
+                    WeatherDataDTO cachedData = getCachedWeatherData(cityName);
+                    if (cachedData != null) {
+                        new Handler(Looper.getMainLooper()).post(() ->
+                                callback.onSuccess(cachedData)
+                        );
+                    } else {
+                        new Handler(Looper.getMainLooper()).post(() ->
+                                callback.onError("Unable to load weather data")
+                        );
+                    }
+                }
+            } catch (IOException e) {
+                WeatherDataDTO cachedData = getCachedWeatherData(cityName);
+                if (cachedData != null) {
+                    new Handler(Looper.getMainLooper()).post(() ->
+                            callback.onSuccess(cachedData)
+                    );
+                } else {
+                    new Handler(Looper.getMainLooper()).post(() ->
+                            callback.onError(e.getMessage())
+                    );
+                }
             }
-        } catch (IOException e) {
-            return getCachedWeatherData(cityName);
-        }
+        });
+    }
+
+    @Override
+    public void getWeatherHistory(String cityName, String userId, Callback<List<WeatherDataDTO>> callback) {
+        executorService.execute(() -> {
+            try {
+                Response<WeatherDataDTO.ListResponseDTO> response =
+                        weatherApi.getWeatherHistory(cityName, userId).execute();
+                if (response.isSuccessful() && response.body() != null) {
+                    new Handler(Looper.getMainLooper()).post(() ->
+                            callback.onSuccess(response.body().getData())
+                    );
+                } else {
+                    new Handler(Looper.getMainLooper()).post(() ->
+                            callback.onError("Unable to load weather history")
+                    );
+                }
+            } catch (IOException e) {
+                new Handler(Looper.getMainLooper()).post(() ->
+                        callback.onError(e.getMessage())
+                );
+            }
+        });
     }
 
     @Override

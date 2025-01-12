@@ -1,5 +1,8 @@
 package com.guicarneirodev.weatherapp.di;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.guicarneirodev.weatherapp.data.remote.adapter.LocalDateTimeAdapter;
 import com.guicarneirodev.weatherapp.data.remote.api.WeatherApi;
 import dagger.Module;
 import dagger.Provides;
@@ -10,11 +13,21 @@ import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import javax.inject.Singleton;
+
+import java.time.LocalDateTime;
 import java.util.concurrent.TimeUnit;
 
 @Module
 @InstallIn(SingletonComponent.class)
 public class NetworkModule {
+
+    @Provides
+    @Singleton
+    Gson provideGson() {
+        return new GsonBuilder()
+                .registerTypeAdapter(LocalDateTime.class, new LocalDateTimeAdapter())
+                .create();
+    }
 
     @Provides
     @Singleton
@@ -32,11 +45,11 @@ public class NetworkModule {
 
     @Provides
     @Singleton
-    Retrofit provideRetrofit(OkHttpClient client) {
+    Retrofit provideRetrofit(OkHttpClient client, Gson gson) {
         return new Retrofit.Builder()
-                .baseUrl("http://10.0.2.2:8080/")  // URL para emulador
+                .baseUrl("http://10.0.2.2:8080/")
                 .client(client)
-                .addConverterFactory(GsonConverterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create(gson))
                 .build();
     }
 

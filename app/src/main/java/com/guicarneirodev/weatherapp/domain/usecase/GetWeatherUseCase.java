@@ -12,7 +12,7 @@ public class GetWeatherUseCase {
         this.weatherRepository = weatherRepository;
     }
 
-    public WeatherDataDTO execute(String cityName, String userId) {
-        return weatherRepository.getWeatherData(cityName, userId);
+    public void execute(String cityName, String userId, WeatherRepository.Callback<WeatherDataDTO> callback) {
+        weatherRepository.getWeatherData(cityName, userId, callback);
     }
 }

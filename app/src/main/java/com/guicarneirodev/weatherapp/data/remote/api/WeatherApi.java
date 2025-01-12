@@ -7,13 +7,13 @@ import retrofit2.http.*;
 import java.util.List;
 
 public interface WeatherApi {
-    @GET("/api/weather/cities/{cityName}/users/{userId}")
+    @POST("/api/weather/cities/{cityName}/users/{userId}")
     Call<WeatherDataDTO> getWeatherData(
             @Path("cityName") String cityName,
             @Path("userId") String userId
     );
 
-    @GET("/api/weather/cities/{cityName}/users/{userId}/history")
+    @POST("/api/weather/cities/{cityName}/users/{userId}/history")
     Call<WeatherDataDTO.ListResponseDTO> getWeatherHistory(
             @Path("cityName") String cityName,
             @Path("userId") String userId

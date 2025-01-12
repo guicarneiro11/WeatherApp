@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 import com.guicarneirodev.weatherapp.data.remote.dto.WeatherDataDTO;
+import com.guicarneirodev.weatherapp.domain.repository.WeatherRepository;
 import com.guicarneirodev.weatherapp.domain.usecase.GetWeatherUseCase;
 import com.guicarneirodev.weatherapp.domain.usecase.GetWeatherHistoryUseCase;
 import dagger.hilt.android.lifecycle.HiltViewModel;
@@ -21,26 +22,26 @@ public class WeatherViewModel extends ViewModel {
     private final MutableLiveData<Boolean> loading = new MutableLiveData<>();
 
     @Inject
-    public WeatherViewModel(GetWeatherUseCase getWeatherUseCase,
-                            GetWeatherHistoryUseCase getWeatherHistoryUseCase) {
+    public WeatherViewModel(GetWeatherUseCase getWeatherUseCase, GetWeatherHistoryUseCase getWeatherHistoryUseCase) {
         this.getWeatherUseCase = getWeatherUseCase;
         this.getWeatherHistoryUseCase = getWeatherHistoryUseCase;
     }
 
     public void loadWeatherData(String cityName, String userId) {
         loading.setValue(true);
-        try {
-            WeatherDataDTO data = getWeatherUseCase.execute(cityName, userId);
-            if (data != null) {
-                weatherData.setValue(data);
-            } else {
-                error.setValue("Unable to load weather data");
+        getWeatherUseCase.execute(cityName, userId, new WeatherRepository.Callback<WeatherDataDTO>() {
+            @Override
+            public void onSuccess(WeatherDataDTO result) {
+                loading.setValue(false);
+                weatherData.setValue(result);
             }
-        } catch (Exception e) {
-            error.setValue(e.getMessage());
-        } finally {
-            loading.setValue(false);
-        }
+
+            @Override
+            public void onError(String errorMessage) {
+                loading.setValue(false);
+                error.setValue(errorMessage);
+            }
+        });
     }
 
     public void loadWeatherHistory(String cityName, String userId) {
