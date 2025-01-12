@@ -3,7 +3,7 @@ package com.guicarneirodev.weatherapp;
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.NavigationUI;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import dagger.hilt.android.AndroidEntryPoint;
@@ -24,7 +24,11 @@ public class MainActivity extends AppCompatActivity {
 
     private void setupNavigation() {
         bottomNavigationView = findViewById(R.id.bottom_navigation);
-        navController = Navigation.findNavController(this, R.id.nav_host_fragment);
+
+        NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager()
+                .findFragmentById(R.id.nav_host_fragment);
+        navController = navHostFragment.getNavController();
+
         NavigationUI.setupWithNavController(bottomNavigationView, navController);
     }
 

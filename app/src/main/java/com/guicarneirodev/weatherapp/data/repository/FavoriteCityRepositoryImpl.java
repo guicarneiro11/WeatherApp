@@ -1,15 +1,16 @@
 package com.guicarneirodev.weatherapp.data.repository;
 
 import com.guicarneirodev.weatherapp.data.local.dao.FavoriteCityDao;
-import com.guicarneirodev.weatherapp.data.local.entity.FavoriteCityEntity;
 import com.guicarneirodev.weatherapp.data.mapper.FavoriteCityMapper;
 import com.guicarneirodev.weatherapp.data.remote.api.WeatherApi;
 import com.guicarneirodev.weatherapp.data.remote.dto.FavoriteCityDTO;
 import com.guicarneirodev.weatherapp.domain.repository.FavoriteCityRepository;
-import javax.inject.Inject;
+import com.guicarneirodev.weatherapp.data.local.entity.FavoriteCityEntity;
 
-import java.util.ArrayList;
+import java.time.ZoneOffset;
+import javax.inject.Inject;
 import java.util.List;
+import java.util.ArrayList;
 import retrofit2.Response;
 import java.io.IOException;
 
@@ -44,7 +45,16 @@ public class FavoriteCityRepositoryImpl implements FavoriteCityRepository {
         try {
             Response<FavoriteCityDTO> response = weatherApi.addFavoriteCity(city).execute();
             if (response.isSuccessful() && response.body() != null) {
-                return response.body();
+                FavoriteCityDTO addedCity = response.body();
+                // Salvar no cache
+                FavoriteCityEntity entity = new FavoriteCityEntity();
+                entity.setId(addedCity.getId());
+                entity.setCityName(addedCity.getCityName());
+                entity.setUserId(addedCity.getUserId());
+                entity.setCreatedAt(addedCity.getCreatedAt() != null ?
+                        addedCity.getCreatedAt().toEpochSecond(ZoneOffset.UTC) : null);
+                favoriteCityDao.insert(entity);
+                return addedCity;
             }
             return null;
         } catch (IOException e) {

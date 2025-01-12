@@ -2,26 +2,25 @@ package com.guicarneirodev.weatherapp.data.local.entity;
 
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
-import androidx.room.TypeConverters;
 
-import com.guicarneirodev.weatherapp.data.local.Converters;
-
-import java.time.LocalDateTime;
-
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-
-@Data
 @Entity(tableName = "favorite_cities")
-@AllArgsConstructor // Adiciona esta anotação
-@NoArgsConstructor  // Mantém o construtor sem argumentos também
 public class FavoriteCityEntity {
     @PrimaryKey
     private Long id;
     private String cityName;
     private String userId;
-    private LocalDateTime createdAt;
+    private Long createdAt;
+
+    // Getters e Setters
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
+
+    public String getCityName() { return cityName; }
+    public void setCityName(String cityName) { this.cityName = cityName; }
+
+    public String getUserId() { return userId; }
+    public void setUserId(String userId) { this.userId = userId; }
+
+    public Long getCreatedAt() { return createdAt; }
+    public void setCreatedAt(Long createdAt) { this.createdAt = createdAt; }
 }
