@@ -1,9 +1,6 @@
-package com.guicarneirodev.weatherapp;
+package com.guicarneirodev.weatherapp.di;
 
-import java.util.concurrent.TimeUnit;
-
-import javax.inject.Singleton;
-
+import com.guicarneirodev.weatherapp.data.remote.api.WeatherApi;
 import dagger.Module;
 import dagger.Provides;
 import dagger.hilt.InstallIn;
@@ -12,22 +9,24 @@ import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+import javax.inject.Singleton;
+import java.util.concurrent.TimeUnit;
 
 @Module
 @InstallIn(SingletonComponent.class)
 public class NetworkModule {
 
-    private static final String BASE_URL = "http://10.0.2.2:8080/";
-
     @Provides
     @Singleton
     OkHttpClient provideOkHttpClient() {
+        HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
+        logging.setLevel(HttpLoggingInterceptor.Level.BODY);
+
         return new OkHttpClient.Builder()
+                .addInterceptor(logging)
                 .connectTimeout(30, TimeUnit.SECONDS)
                 .readTimeout(30, TimeUnit.SECONDS)
                 .writeTimeout(30, TimeUnit.SECONDS)
-                .addInterceptor(new HttpLoggingInterceptor()
-                        .setLevel(HttpLoggingInterceptor.Level.BODY))
                 .build();
     }
 
@@ -35,9 +34,15 @@ public class NetworkModule {
     @Singleton
     Retrofit provideRetrofit(OkHttpClient client) {
         return new Retrofit.Builder()
-                .baseUrl(BASE_URL)
+                .baseUrl("http://10.0.2.2:8080/")  // URL para emulador
                 .client(client)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
+    }
+
+    @Provides
+    @Singleton
+    WeatherApi provideWeatherApi(Retrofit retrofit) {
+        return retrofit.create(WeatherApi.class);
     }
 }

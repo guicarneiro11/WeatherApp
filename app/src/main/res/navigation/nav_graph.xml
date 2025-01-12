@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/navigation_current">
+
+    <fragment
+        android:id="@+id/navigation_current"
+        android:name="com.guicarneirodev.weatherapp.presentation.ui.current.CurrentWeatherFragment"
+        android:label="Current Weather" />
+
+    <fragment
+        android:id="@+id/navigation_favorites"
+        android:name="com.guicarneirodev.weatherapp.presentation.ui.favorites.FavoritesFragment"
+        android:label="Favorites" />
+
+</navigation>

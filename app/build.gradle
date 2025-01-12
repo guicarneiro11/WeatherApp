@@ -28,6 +28,10 @@ android {
         sourceCompatibility JavaVersion.VERSION_17
         targetCompatibility JavaVersion.VERSION_17
     }
+
+    buildFeatures {
+        viewBinding true
+    }
 }
 
 dependencies {
@@ -40,6 +44,9 @@ dependencies {
     implementation libs.retrofit
     implementation libs.retrofit.gson
     implementation libs.gson
+    implementation libs.databinding.adapters
+    implementation libs.navigation.fragment
+    implementation libs.navigation.ui
 
     testImplementation libs.junit
     androidTestImplementation libs.ext.junit
@@ -60,4 +67,12 @@ dependencies {
 
     // OkHttp logging
     implementation libs.okhttp.logging
+
+    // Lombok
+    compileOnly libs.lombok
+    annotationProcessor libs.lombok
+
+    // Navigation
+    implementation "androidx.navigation:navigation-fragment:2.8.5"
+    implementation "androidx.navigation:navigation-ui:2.8.5"
 }

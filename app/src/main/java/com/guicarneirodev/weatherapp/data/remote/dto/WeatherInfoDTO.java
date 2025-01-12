@@ -1,5 +1,8 @@
 package com.guicarneirodev.weatherapp.data.remote.dto;
 
+import lombok.Data;
+
+@Data
 public class WeatherInfoDTO {
     private String cityName;
     private Double temperature;
