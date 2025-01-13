@@ -1,16 +1,20 @@
 package com.guicarneirodev.weatherapp.data.remote.api;
 
 import android.content.Context;
+
 import androidx.room.Room;
+
 import com.guicarneirodev.weatherapp.data.local.WeatherDatabase;
-import com.guicarneirodev.weatherapp.data.local.dao.WeatherInfoDao;
 import com.guicarneirodev.weatherapp.data.local.dao.FavoriteCityDao;
+import com.guicarneirodev.weatherapp.data.local.dao.WeatherInfoDao;
+
+import javax.inject.Singleton;
+
 import dagger.Module;
 import dagger.Provides;
 import dagger.hilt.InstallIn;
 import dagger.hilt.android.qualifiers.ApplicationContext;
 import dagger.hilt.components.SingletonComponent;
-import javax.inject.Singleton;
 
 @Module
 @InstallIn(SingletonComponent.class)

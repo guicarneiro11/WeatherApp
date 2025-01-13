@@ -1,12 +1,13 @@
 package com.guicarneirodev.weatherapp.presentation.ui.favorites;
 
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.os.Bundle;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
-import android.app.AlertDialog;
-import com.guicarneirodev.weatherapp.data.remote.dto.FavoriteCityDTO;
+
 import com.guicarneirodev.weatherapp.databinding.DialogAddCityBinding;
 
 public class AddCityDialog extends DialogFragment {

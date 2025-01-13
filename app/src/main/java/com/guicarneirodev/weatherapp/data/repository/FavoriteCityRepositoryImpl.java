@@ -4,22 +4,21 @@ import android.os.Handler;
 import android.os.Looper;
 
 import com.guicarneirodev.weatherapp.data.local.dao.FavoriteCityDao;
+import com.guicarneirodev.weatherapp.data.local.entity.FavoriteCityEntity;
 import com.guicarneirodev.weatherapp.data.mapper.FavoriteCityMapper;
 import com.guicarneirodev.weatherapp.data.remote.api.WeatherApi;
 import com.guicarneirodev.weatherapp.data.remote.dto.FavoriteCityDTO;
 import com.guicarneirodev.weatherapp.domain.repository.FavoriteCityRepository;
-import com.guicarneirodev.weatherapp.data.local.entity.FavoriteCityEntity;
 
-import java.time.ZoneOffset;
-import javax.inject.Inject;
-import java.util.List;
-import java.util.ArrayList;
-
-import retrofit2.Callback;
-import retrofit2.Response;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+
+import javax.inject.Inject;
+
+import retrofit2.Response;
 
 public class FavoriteCityRepositoryImpl implements FavoriteCityRepository {
     private final WeatherApi weatherApi;

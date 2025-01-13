@@ -11,14 +11,16 @@ import com.guicarneirodev.weatherapp.data.mapper.WeatherMapper;
 import com.guicarneirodev.weatherapp.data.remote.api.WeatherApi;
 import com.guicarneirodev.weatherapp.data.remote.dto.WeatherDataDTO;
 import com.guicarneirodev.weatherapp.domain.repository.WeatherRepository;
-import javax.inject.Inject;
 
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.List;
-import retrofit2.Response;
-import java.io.IOException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+
+import javax.inject.Inject;
+
+import retrofit2.Response;
 
 public class WeatherRepositoryImpl implements WeatherRepository {
     private final WeatherApi weatherApi;

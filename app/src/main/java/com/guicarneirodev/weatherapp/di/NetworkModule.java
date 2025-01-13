@@ -4,6 +4,12 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.guicarneirodev.weatherapp.data.remote.adapter.LocalDateTimeAdapter;
 import com.guicarneirodev.weatherapp.data.remote.api.WeatherApi;
+
+import java.time.LocalDateTime;
+import java.util.concurrent.TimeUnit;
+
+import javax.inject.Singleton;
+
 import dagger.Module;
 import dagger.Provides;
 import dagger.hilt.InstallIn;
@@ -12,10 +18,6 @@ import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
-import javax.inject.Singleton;
-
-import java.time.LocalDateTime;
-import java.util.concurrent.TimeUnit;
 
 @Module
 @InstallIn(SingletonComponent.class)

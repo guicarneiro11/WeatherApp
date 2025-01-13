@@ -1,6 +1,7 @@
 package com.guicarneirodev.weatherapp.domain.usecase;
 
 import com.guicarneirodev.weatherapp.domain.repository.FavoriteCityRepository;
+
 import javax.inject.Inject;
 
 public class RemoveFavoriteCityUseCase {

@@ -6,12 +6,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+
 import com.guicarneirodev.weatherapp.databinding.FragmentCurrentWeatherBinding;
 import com.guicarneirodev.weatherapp.presentation.viewmodel.WeatherViewModel;
+
 import dagger.hilt.android.AndroidEntryPoint;
 
 @AndroidEntryPoint

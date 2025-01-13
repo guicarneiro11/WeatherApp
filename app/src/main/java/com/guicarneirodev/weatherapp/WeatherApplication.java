@@ -1,6 +1,7 @@
 package com.guicarneirodev.weatherapp;
 
 import android.app.Application;
+
 import dagger.hilt.android.HiltAndroidApp;
 
 @HiltAndroidApp

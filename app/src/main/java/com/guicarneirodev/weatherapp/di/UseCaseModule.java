@@ -2,7 +2,12 @@ package com.guicarneirodev.weatherapp.di;
 
 import com.guicarneirodev.weatherapp.domain.repository.FavoriteCityRepository;
 import com.guicarneirodev.weatherapp.domain.repository.WeatherRepository;
-import com.guicarneirodev.weatherapp.domain.usecase.*;
+import com.guicarneirodev.weatherapp.domain.usecase.AddFavoriteCityUseCase;
+import com.guicarneirodev.weatherapp.domain.usecase.GetFavoriteCitiesUseCase;
+import com.guicarneirodev.weatherapp.domain.usecase.GetWeatherHistoryUseCase;
+import com.guicarneirodev.weatherapp.domain.usecase.GetWeatherUseCase;
+import com.guicarneirodev.weatherapp.domain.usecase.RemoveFavoriteCityUseCase;
+
 import dagger.Module;
 import dagger.Provides;
 import dagger.hilt.InstallIn;

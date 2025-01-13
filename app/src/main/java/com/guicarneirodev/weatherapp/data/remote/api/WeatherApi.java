@@ -1,10 +1,17 @@
 package com.guicarneirodev.weatherapp.data.remote.api;
 
-import com.guicarneirodev.weatherapp.data.remote.dto.WeatherDataDTO;
 import com.guicarneirodev.weatherapp.data.remote.dto.FavoriteCityDTO;
-import retrofit2.Call;
-import retrofit2.http.*;
+import com.guicarneirodev.weatherapp.data.remote.dto.WeatherDataDTO;
+
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.http.Body;
+import retrofit2.http.DELETE;
+import retrofit2.http.GET;
+import retrofit2.http.POST;
+import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 public interface WeatherApi {
     @POST("/api/weather/cities/{cityName}/users/{userId}")

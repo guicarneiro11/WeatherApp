@@ -2,6 +2,7 @@ package com.guicarneirodev.weatherapp.data.mapper;
 
 import com.guicarneirodev.weatherapp.data.local.entity.FavoriteCityEntity;
 import com.guicarneirodev.weatherapp.data.remote.dto.FavoriteCityDTO;
+
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 

@@ -2,8 +2,10 @@ package com.guicarneirodev.weatherapp.domain.usecase;
 
 import com.guicarneirodev.weatherapp.data.remote.dto.WeatherDataDTO;
 import com.guicarneirodev.weatherapp.domain.repository.WeatherRepository;
-import javax.inject.Inject;
+
 import java.util.List;
+
+import javax.inject.Inject;
 
 public class GetWeatherHistoryUseCase {
     private final WeatherRepository weatherRepository;

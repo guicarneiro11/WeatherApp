@@ -3,17 +3,20 @@ package com.guicarneirodev.weatherapp.presentation.viewmodel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
+
 import com.guicarneirodev.weatherapp.data.remote.dto.FavoriteCityDTO;
 import com.guicarneirodev.weatherapp.domain.repository.FavoriteCityRepository;
 import com.guicarneirodev.weatherapp.domain.usecase.AddFavoriteCityUseCase;
 import com.guicarneirodev.weatherapp.domain.usecase.GetFavoriteCitiesUseCase;
 import com.guicarneirodev.weatherapp.domain.usecase.RemoveFavoriteCityUseCase;
-import dagger.hilt.android.lifecycle.HiltViewModel;
-import javax.inject.Inject;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+
+import javax.inject.Inject;
+
+import dagger.hilt.android.lifecycle.HiltViewModel;
 
 @HiltViewModel
 public class FavoriteCitiesViewModel extends ViewModel {

@@ -1,6 +1,7 @@
 package com.guicarneirodev.weatherapp.domain.repository;
 
 import com.guicarneirodev.weatherapp.data.remote.dto.WeatherDataDTO;
+
 import java.util.List;
 
 public interface WeatherRepository {

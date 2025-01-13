@@ -7,4 +7,18 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+    <!-- Cor primária (60%) -->
+    <color name="primary">#1E88E5</color>
+    <color name="primary_variant">#1565C0</color>
+    <color name="primary_light">#42A5F5</color>
+
+    <!-- Cor secundária (30%) -->
+    <color name="surface">#FFFFFF</color>
+    <color name="background">#F5F5F5</color>
+    <color name="on_surface">#212121</color>
+
+    <!-- Cor de destaque (10%) -->
+    <color name="accent">#FFA000</color>
+    <color name="accent_variant">#FFB300</color>
 </resources>

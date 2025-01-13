@@ -2,10 +2,12 @@ package com.guicarneirodev.weatherapp.presentation.ui.favorites;
 
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.guicarneirodev.weatherapp.data.remote.dto.FavoriteCityDTO;
 import com.guicarneirodev.weatherapp.databinding.ItemFavoriteCityBinding;
 

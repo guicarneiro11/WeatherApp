@@ -1,7 +1,12 @@
 package com.guicarneirodev.weatherapp.data.local.dao;
 
-import androidx.room.*;
+import androidx.room.Dao;
+import androidx.room.Insert;
+import androidx.room.OnConflictStrategy;
+import androidx.room.Query;
+
 import com.guicarneirodev.weatherapp.data.local.entity.WeatherInfoEntity;
+
 import java.util.List;
 
 @Dao

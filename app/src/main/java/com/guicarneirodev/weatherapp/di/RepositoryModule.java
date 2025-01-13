@@ -1,14 +1,16 @@
 package com.guicarneirodev.weatherapp.di;
 
-import com.guicarneirodev.weatherapp.data.repository.WeatherRepositoryImpl;
 import com.guicarneirodev.weatherapp.data.repository.FavoriteCityRepositoryImpl;
-import com.guicarneirodev.weatherapp.domain.repository.WeatherRepository;
+import com.guicarneirodev.weatherapp.data.repository.WeatherRepositoryImpl;
 import com.guicarneirodev.weatherapp.domain.repository.FavoriteCityRepository;
+import com.guicarneirodev.weatherapp.domain.repository.WeatherRepository;
+
+import javax.inject.Singleton;
+
 import dagger.Binds;
 import dagger.Module;
 import dagger.hilt.InstallIn;
 import dagger.hilt.components.SingletonComponent;
-import javax.inject.Singleton;
 
 @Module
 @InstallIn(SingletonComponent.class)
