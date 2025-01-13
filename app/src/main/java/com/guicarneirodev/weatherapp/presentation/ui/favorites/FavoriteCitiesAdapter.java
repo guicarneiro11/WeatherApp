@@ -13,6 +13,7 @@ public class FavoriteCitiesAdapter extends ListAdapter<FavoriteCityDTO, Favorite
     private final OnCityClickListener listener;
 
     public interface OnCityClickListener {
+        void onCityClick(FavoriteCityDTO city);
         void onRemoveCity(FavoriteCityDTO city);
     }
 
@@ -32,7 +33,9 @@ public class FavoriteCitiesAdapter extends ListAdapter<FavoriteCityDTO, Favorite
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.bind(getItem(position));
+        FavoriteCityDTO city = getItem(position);
+        holder.bind(city);
+        holder.itemView.setOnClickListener(v -> listener.onCityClick(city));
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {

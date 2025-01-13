@@ -13,7 +13,7 @@ public class GetFavoriteCitiesUseCase {
         this.favoriteCityRepository = favoriteCityRepository;
     }
 
-    public List<FavoriteCityDTO> execute(String userId) {
-        return favoriteCityRepository.getFavoriteCities(userId);
+    public void execute(String userId, FavoriteCityRepository.Callback<List<FavoriteCityDTO>> callback) {
+        favoriteCityRepository.getFavoriteCities(userId, callback);
     }
 }

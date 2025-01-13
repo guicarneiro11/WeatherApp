@@ -10,8 +10,11 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import com.guicarneirodev.weatherapp.R;
 import com.guicarneirodev.weatherapp.data.remote.dto.FavoriteCityDTO;
 import com.guicarneirodev.weatherapp.databinding.FragmentFavoritesBinding;
 import com.guicarneirodev.weatherapp.presentation.viewmodel.FavoriteCitiesViewModel;
@@ -24,6 +27,7 @@ import dagger.hilt.android.AndroidEntryPoint;
 public class FavoritesFragment extends Fragment {
     private FragmentFavoritesBinding binding;
     private FavoriteCitiesViewModel viewModel;
+    private NavController navController;
     private FavoriteCitiesAdapter adapter;
 
     @Override
@@ -59,18 +63,28 @@ public class FavoritesFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        navController = Navigation.findNavController(view);
         setupRecyclerView();
-        setupViews();
         observeViewModel();
         loadFavorites();
     }
 
     private void setupRecyclerView() {
-        adapter = new FavoriteCitiesAdapter(city ->
-                viewModel.removeFavoriteCity(city.getId())
-        );
-        binding.favoritesRecyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
+        adapter = new FavoriteCitiesAdapter(new FavoriteCitiesAdapter.OnCityClickListener() {
+            @Override
+            public void onCityClick(FavoriteCityDTO city) {
+                Bundle args = new Bundle();
+                args.putString("selectedCity", city.getCityName());
+                navController.navigate(R.id.navigation_current, args);
+            }
+
+            @Override
+            public void onRemoveCity(FavoriteCityDTO city) {
+                viewModel.removeFavoriteCity(city.getId());
+            }
+        });
         binding.favoritesRecyclerView.setAdapter(adapter);
+        binding.favoritesRecyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
     }
 
     private void observeViewModel() {

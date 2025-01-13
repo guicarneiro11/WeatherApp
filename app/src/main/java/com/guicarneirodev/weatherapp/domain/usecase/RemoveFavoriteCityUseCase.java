@@ -11,7 +11,7 @@ public class RemoveFavoriteCityUseCase {
         this.favoriteCityRepository = favoriteCityRepository;
     }
 
-    public void execute(long cityId) {
-        favoriteCityRepository.deleteFavoriteCity(cityId);
+    public void execute(long cityId, FavoriteCityRepository.Callback<Void> callback) {
+        favoriteCityRepository.deleteFavoriteCity(cityId, callback);
     }
 }

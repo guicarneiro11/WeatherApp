@@ -4,9 +4,12 @@ import com.guicarneirodev.weatherapp.data.remote.dto.FavoriteCityDTO;
 import java.util.List;
 
 public interface FavoriteCityRepository {
-    List<FavoriteCityDTO> getFavoriteCities(String userId);
-    FavoriteCityDTO addFavoriteCity(FavoriteCityDTO city);
-    void deleteFavoriteCity(long id);
-    void cacheFavoriteCities(List<FavoriteCityDTO> cities);
-    List<FavoriteCityDTO> getCachedFavoriteCities(String userId);
+    interface Callback<T> {
+        void onSuccess(T result);
+        void onError(String error);
+    }
+
+    void getFavoriteCities(String userId, Callback<List<FavoriteCityDTO>> callback);
+    void addFavoriteCity(FavoriteCityDTO city, Callback<FavoriteCityDTO> callback);
+    void deleteFavoriteCity(long id, Callback<Void> callback);
 }

@@ -4,11 +4,15 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 import com.guicarneirodev.weatherapp.data.remote.dto.FavoriteCityDTO;
+import com.guicarneirodev.weatherapp.domain.repository.FavoriteCityRepository;
 import com.guicarneirodev.weatherapp.domain.usecase.AddFavoriteCityUseCase;
 import com.guicarneirodev.weatherapp.domain.usecase.GetFavoriteCitiesUseCase;
 import com.guicarneirodev.weatherapp.domain.usecase.RemoveFavoriteCityUseCase;
 import dagger.hilt.android.lifecycle.HiltViewModel;
 import javax.inject.Inject;
+
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 @HiltViewModel
@@ -22,9 +26,10 @@ public class FavoriteCitiesViewModel extends ViewModel {
     private final MutableLiveData<Boolean> loading = new MutableLiveData<>();
 
     @Inject
-    public FavoriteCitiesViewModel(GetFavoriteCitiesUseCase getFavoriteCitiesUseCase,
-                                   AddFavoriteCityUseCase addFavoriteCityUseCase,
-                                   RemoveFavoriteCityUseCase removeFavoriteCityUseCase) {
+    public FavoriteCitiesViewModel(
+            GetFavoriteCitiesUseCase getFavoriteCitiesUseCase,
+            AddFavoriteCityUseCase addFavoriteCityUseCase,
+            RemoveFavoriteCityUseCase removeFavoriteCityUseCase) {
         this.getFavoriteCitiesUseCase = getFavoriteCitiesUseCase;
         this.addFavoriteCityUseCase = addFavoriteCityUseCase;
         this.removeFavoriteCityUseCase = removeFavoriteCityUseCase;
@@ -32,52 +37,68 @@ public class FavoriteCitiesViewModel extends ViewModel {
 
     public void loadFavoriteCities(String userId) {
         loading.setValue(true);
-        try {
-            List<FavoriteCityDTO> cities = getFavoriteCitiesUseCase.execute(userId);
-            favoriteCities.setValue(cities);
-        } catch (Exception e) {
-            error.setValue(e.getMessage());
-        } finally {
-            loading.setValue(false);
-        }
+        getFavoriteCitiesUseCase.execute(userId, new FavoriteCityRepository.Callback<List<FavoriteCityDTO>>() {
+            @Override
+            public void onSuccess(List<FavoriteCityDTO> result) {
+                loading.setValue(false);
+                favoriteCities.setValue(result);
+            }
+
+            @Override
+            public void onError(String errorMessage) {
+                loading.setValue(false);
+                error.setValue(errorMessage);
+            }
+        });
     }
 
     public void addFavoriteCity(FavoriteCityDTO city) {
         loading.setValue(true);
-        try {
-            FavoriteCityDTO addedCity = addFavoriteCityUseCase.execute(city);
-            if (addedCity != null) {
+        addFavoriteCityUseCase.execute(city, new FavoriteCityRepository.Callback<FavoriteCityDTO>() {
+            @Override
+            public void onSuccess(FavoriteCityDTO result) {
+                loading.setValue(false);
                 List<FavoriteCityDTO> currentList = favoriteCities.getValue();
                 if (currentList != null) {
-                    currentList.add(addedCity);
-                    favoriteCities.setValue(currentList);
+                    List<FavoriteCityDTO> newList = new ArrayList<>(currentList);
+                    newList.add(result);
+                    favoriteCities.setValue(newList);
+                } else {
+                    favoriteCities.setValue(Collections.singletonList(result));
                 }
-            } else {
-                error.setValue("Failed to add city to favorites");
             }
-        } catch (Exception e) {
-            error.setValue(e.getMessage());
-        } finally {
-            loading.setValue(false);
-        }
+
+            @Override
+            public void onError(String errorMessage) {
+                loading.setValue(false);
+                error.setValue(errorMessage);
+            }
+        });
     }
 
     public void removeFavoriteCity(long cityId) {
         loading.setValue(true);
-        try {
-            removeFavoriteCityUseCase.execute(cityId);
-            List<FavoriteCityDTO> currentList = favoriteCities.getValue();
-            if (currentList != null) {
-                currentList.removeIf(city -> city.getId() == cityId);
-                favoriteCities.setValue(currentList);
+        removeFavoriteCityUseCase.execute(cityId, new FavoriteCityRepository.Callback<Void>() {
+            @Override
+            public void onSuccess(Void result) {
+                loading.setValue(false);
+                List<FavoriteCityDTO> currentList = favoriteCities.getValue();
+                if (currentList != null) {
+                    List<FavoriteCityDTO> newList = new ArrayList<>(currentList);
+                    newList.removeIf(city -> city.getId() == cityId);
+                    favoriteCities.setValue(newList);
+                }
             }
-        } catch (Exception e) {
-            error.setValue(e.getMessage());
-        } finally {
-            loading.setValue(false);
-        }
+
+            @Override
+            public void onError(String errorMessage) {
+                loading.setValue(false);
+                error.setValue(errorMessage);
+            }
+        });
     }
 
+    // Getters para LiveData
     public LiveData<List<FavoriteCityDTO>> getFavoriteCities() {
         return favoriteCities;
     }

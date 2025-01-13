@@ -12,7 +12,7 @@ public class AddFavoriteCityUseCase {
         this.favoriteCityRepository = favoriteCityRepository;
     }
 
-    public FavoriteCityDTO execute(FavoriteCityDTO city) {
-        return favoriteCityRepository.addFavoriteCity(city);
+    public void execute(FavoriteCityDTO city, FavoriteCityRepository.Callback<FavoriteCityDTO> callback) {
+        favoriteCityRepository.addFavoriteCity(city, callback);
     }
 }

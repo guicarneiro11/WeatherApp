@@ -16,8 +16,8 @@ import dagger.hilt.android.AndroidEntryPoint;
 
 @AndroidEntryPoint
 public class CurrentWeatherFragment extends Fragment {
-    private FragmentCurrentWeatherBinding binding;
     private WeatherViewModel viewModel;
+    private FragmentCurrentWeatherBinding binding;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -35,6 +35,15 @@ public class CurrentWeatherFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        if (getArguments() != null) {
+            String selectedCity = getArguments().getString("selectedCity");
+            if (selectedCity != null) {
+                binding.cityInput.setText(selectedCity);
+                viewModel.loadWeatherData(selectedCity, "user123");
+            }
+        }
+
         setupViews();
         observeViewModel();
     }
