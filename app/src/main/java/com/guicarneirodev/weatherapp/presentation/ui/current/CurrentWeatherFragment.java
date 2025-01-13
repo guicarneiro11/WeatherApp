@@ -10,7 +10,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
-import com.guicarneirodev.weatherapp.R;
 import com.guicarneirodev.weatherapp.databinding.FragmentCurrentWeatherBinding;
 import com.guicarneirodev.weatherapp.presentation.viewmodel.WeatherViewModel;
 import dagger.hilt.android.AndroidEntryPoint;
@@ -67,7 +66,6 @@ public class CurrentWeatherFragment extends Fragment {
                 binding.descriptionText.setText(weatherData.getInfo().getDescription());
                 binding.humidityText.setText(String.format("Humidity: %d%%", weatherData.getInfo().getHumidity()));
                 binding.windSpeedText.setText(String.format("Wind: %.1f km/h", weatherData.getInfo().getWindSpeed()));
-                binding.pressureText.setText(String.format("Pressure: %d hPa", weatherData.getInfo().getPressure()));
             }
         });
 

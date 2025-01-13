@@ -2,7 +2,9 @@ package com.guicarneirodev.weatherapp.data.repository;
 
 import android.os.Handler;
 import android.os.Looper;
+import android.util.Log;
 
+import com.google.gson.Gson;
 import com.guicarneirodev.weatherapp.data.local.dao.WeatherInfoDao;
 import com.guicarneirodev.weatherapp.data.local.entity.WeatherInfoEntity;
 import com.guicarneirodev.weatherapp.data.mapper.WeatherMapper;
@@ -37,6 +39,7 @@ public class WeatherRepositoryImpl implements WeatherRepository {
                 Response<WeatherDataDTO> response = weatherApi.getWeatherData(cityName, userId).execute();
                 if (response.isSuccessful() && response.body() != null) {
                     WeatherDataDTO weatherData = response.body();
+                    Log.d("WeatherRepository", "Response: " + new Gson().toJson(weatherData)); // Add this line
                     cacheWeatherData(weatherData);
                     new Handler(Looper.getMainLooper()).post(() ->
                             callback.onSuccess(weatherData)

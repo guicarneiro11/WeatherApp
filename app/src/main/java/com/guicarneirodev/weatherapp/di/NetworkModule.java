@@ -26,6 +26,7 @@ public class NetworkModule {
     Gson provideGson() {
         return new GsonBuilder()
                 .registerTypeAdapter(LocalDateTime.class, new LocalDateTimeAdapter())
+                .serializeNulls()
                 .create();
     }
 
