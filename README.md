@@ -1,7 +1,7 @@
 # ☁️ Weather App Android
-Aplicativo Android desenvolvido em Java para visualização de dados meteorológicos em tempo real e gerenciamento de cidades favoritas, integrando com Weather API.
+Android application developed in Java for real-time weather data visualization and favorite cities management, integrating with Weather API.
 
-## 🚀 Tecnologias Utilizadas
+## 🚀 Technologies Used
 ![Java](https://img.shields.io/badge/Java-ED8B00?style=for-the-badge&logo=openjdk&logoColor=white)
 ![Android](https://img.shields.io/badge/Android-3DDC84?style=for-the-badge&logo=android&logoColor=white)
 ![Retrofit](https://img.shields.io/badge/Retrofit-48B983?style=for-the-badge&logo=square&logoColor=white)
@@ -9,77 +9,74 @@ Aplicativo Android desenvolvido em Java para visualização de dados meteorológ
 ![Hilt](https://img.shields.io/badge/Hilt-2196F3?style=for-the-badge&logo=dagger&logoColor=white)
 ![Material Design](https://img.shields.io/badge/Material_Design-757575?style=for-the-badge&logo=material-design&logoColor=white)
 
-## 📋 Descrição
-Aplicativo Android nativo que permite consultar dados meteorológicos em tempo real e gerenciar uma lista de cidades favoritas. Desenvolvido seguindo as melhores práticas de arquitetura e UI/UX.
+## 📋 Description
+Native Android application that allows users to check real-time weather data and manage a list of favorite cities. Developed following best practices in architecture and UI/UX.
 
-## 🛠️ Funcionalidades
-- ✅ Consulta de dados meteorológicos em tempo real
-- ✅ Gerenciamento de cidades favoritas
-- ✅ Cache local para funcionamento offline
-- ✅ UI com Material Design
+## 🛠️ Features
+- ✅ Real-time weather data consultation
+- ✅ Favorite cities management
+- ✅ Local cache for offline functionality
+- ✅ UI with Material Design
 
-## 🏗️ Arquitetura
-O aplicativo segue a arquitetura Clean Architecture + MVVM:
-- **data**: Camada de dados
-  - remote: API e DTOs
-  - local: Room Database e Entities
-  - repository: Implementações dos repositórios
-- **domain**: Regras de negócio
-  - model: Modelos de domínio
-  - repository: Interfaces dos repositórios
-  - usecase: Casos de uso
-- **di**: Injeção de dependência com Hilt
-- **presentation**: UI e ViewModels
-  - ui: Activities e Fragments
-  - viewmodel: ViewModels e estados
+## 🏗️ Architecture
+The application follows Clean Architecture + MVVM:
+- **data**: Data layer
+  - remote: API and DTOs
+  - local: Room Database and Entities
+  - repository: Repository implementations
+- **domain**: Business rules
+  - model: Domain models
+  - repository: Repository interfaces
+  - usecase: Use cases
+- **di**: Dependency injection with Hilt
+- **presentation**: UI and ViewModels
+  - ui: Activities and Fragments
+  - viewmodel: ViewModels and states
 
-## ⚙️ Configuração Local
-1. Clone o repositório
+## ⚙️ Local Setup
+1. Clone the repository
 ```bash
-git clone https://github.com/SEU_USUARIO/weather-app.git
+git clone https://github.com/YOUR_USERNAME/weather-app.git
+```
+2. Configure the local API
+```bash
+# Run Weather API on localhost:8080
+```
+3. Run the project
+```bash
+# Open in Android Studio and run
 ```
 
-2. Configure a API local
-```bash
-# Execute a Weather API em localhost:8080
-```
-
-3. Execute o projeto
-```bash
-# Abra no Android Studio e execute
-```
-
-## 📦 Principais Dependências
-- Retrofit para comunicação com API
-- Room para persistência local
-- Hilt para injeção de dependência
-- Navigation Component para navegação
+## 📦 Main Dependencies
+- Retrofit for API communication
+- Room for local persistence
+- Hilt for dependency injection
+- Navigation Component for navigation
 - Material Design Components
-- LiveData e ViewModel
-- Gson para serialização JSON
+- LiveData and ViewModel
+- Gson for JSON serialization
 
-## 🔒 Tratamento de Erros
-- Cache local para funcionamento offline
-- Tratamento de erros de rede
-- Feedback visual para o usuário
-- Validação de entrada de dados
+## 🔒 Error Handling
+- Local cache for offline functionality
+- Network error handling
+- Visual feedback for users
+- Input data validation
 
 ## 🎨 UI/UX
 - Material Design Guidelines
-- Animações e transições suaves
-- Feedback visual imediato
+- Smooth animations and transitions
+- Immediate visual feedback
 
-## 📈 Próximos Passos
-- [ ] Implementação de testes unitários
-- [ ] Testes de UI com Espresso
-- [ ] Widgets para tela inicial
-- [ ] Notificações de alertas climáticos
+## 📈 Next Steps
+- [ ] Unit tests implementation
+- [ ] UI tests with Espresso
+- [ ] Home screen widgets
+- [ ] Weather alert notifications
 
-## 👨‍💻 Autor
-[Guilherme Carneiro](https://github.com/guicarneiro11) - [@guizaokt](https://twitter.com/seu_twitter)
+## 👨‍💻 Author
+[Guilherme Carneiro](https://github.com/guicarneiro11) - [@guizaokt](https://x.com/guizaokt)
 
-## 🤝 Integração
-Este aplicativo é parte do ecossistema Weather App:
+## 🤝 Integration
+This application is part of the Weather App ecosystem:
 - [Weather API](https://github.com/guicarneiro11/weather-api)
-
 ---
